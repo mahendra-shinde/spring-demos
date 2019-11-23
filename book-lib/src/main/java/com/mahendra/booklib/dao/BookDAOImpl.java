@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.mahendra.booklib.models.Book;
+import com.mahendra.booklib.models.Member;
 
 @Repository
 public class BookDAOImpl implements BookDAO {
@@ -31,7 +32,7 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findByAuthor(String author) {
 		log.info("Finding books written by author " + author);
-		List<Book> temp = createQuery("from Book b where lower(b.author) = lower(?1)").setParameter(1, author)
+		List<Book> temp = createQuery("from Book b where lower(b.author) = lower(?1)", author)
 				.getResultList();
 		log.info("Found " + temp.size() + " books");
 		return temp;
@@ -40,8 +41,7 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findByCategory(String category) {
 		log.info("Finding books by category " + category);
-		List<Book> temp = createQuery("from Book b where lower(b.category) = lower(?1)")
-				.setParameter(1, category).getResultList();
+		List<Book> temp = createQuery("from Book b where lower(b.category) = lower(?1)", category).getResultList();
 		log.info("Found " + temp.size() + "books");
 		return temp;
 	}
@@ -49,7 +49,7 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findByTitle(String title) {
 		log.info("Finding books by title " + title);
-		List<Book> temp = createQuery("from Book b where lower(b.title) = lower(?1)").setParameter(1, title)
+		List<Book> temp = createQuery("from Book b where lower(b.title) = lower(?1)", title)
 				.getResultList();
 		log.info("Found " + temp.size() + "books");
 		return temp;
@@ -58,8 +58,8 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findAvailableByTitle(String title) {
 		log.info("Finding available books by title " + title);
-		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.title) = lower(?1)")
-				.setParameter(1, title).getResultList();
+		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.title) = lower(?1)"
+				, title).getResultList();
 		log.info("Found " + temp.size() + "books");
 		return temp;
 	}
@@ -67,8 +67,8 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findAvailableByAuthor(String author) {
 		log.info("Finding available books written by author " + author);
-		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.author) = lower(?1)")
-				.setParameter(1, author).getResultList();
+		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.author) = lower(?1)"
+				, author).getResultList();
 		log.info("Found " + temp.size() + " books");
 		return temp;
 	}
@@ -76,8 +76,8 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findAvailableByCategory(String category) {
 		log.info("Finding books by category " + category);
-		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.category) = lower(?1)")
-				.setParameter(1, category).getResultList();
+		List<Book> temp = createQuery("from Book b where b.status = 'A' and lower(b.category) = lower(?1)"
+				, category).getResultList();
 		log.info("Found " + temp.size() + "books");
 		return temp;
 	}
@@ -95,7 +95,11 @@ public class BookDAOImpl implements BookDAO {
 		return book.getId();
 	}
 
-	private TypedQuery<Book> createQuery(String query) {
-		return em.createQuery(query, Book.class);
-	}
+	private TypedQuery<Book> createQuery(String query, Object ... params) {
+		TypedQuery<Book> q= em.createQuery(query,Book.class);
+		for(int i=0;i<params.length;i++) {
+			q.setParameter(i+1, params[i]);
+		}
+		return q;
+		}
 }

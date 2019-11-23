@@ -22,8 +22,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book findById(Integer id) {
 		Book temp = dao.findById(id);
-		if(temp==null)
-			throw new ApplicationException("Book not found!");
 		return temp;
 	}
 

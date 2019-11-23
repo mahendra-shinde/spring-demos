@@ -18,7 +18,9 @@ public class BookServiceImplTest {
 	
 	@Test
 	public void testFindById() {
-		fail("Not yet implemented");
+		Book book = service.findById(10007);
+		assertNotNull(book);
+		assertEquals("Java", book.getCategory());
 	}
 
 	@Test

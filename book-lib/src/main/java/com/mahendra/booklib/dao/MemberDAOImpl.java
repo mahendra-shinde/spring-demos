@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import com.mahendra.booklib.models.BookIssue;
 import com.mahendra.booklib.models.Member;
 
 @Repository
@@ -29,13 +30,13 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<Member> findByFirstName(String firstName) {
 		log.info("Find member by First Name " + firstName);
-		return createQuery("from Member m where lower(m.firstName)= lower(?1)").setParameter(1, firstName).getResultList();
+		return createQuery("from Member m where lower(m.firstName)= lower(?1)", firstName).getResultList();
 	}
 
 	@Override
 	public List<Member> findByLastName(String lastName) {
 		log.info("Find member by Last Name "+lastName);
-		return createQuery("from Member m where lower(m.lastName)= lower(?1)").setParameter(1, lastName).getResultList();
+		return createQuery("from Member m where lower(m.lastName)= lower(?1)", lastName).getResultList();
 		}
 
 	@Override
@@ -53,8 +54,13 @@ public class MemberDAOImpl implements MemberDAO {
 
 	
 	//Helper method that ALWAYS creates TYPED-QUERY for Member entity
-	private TypedQuery<Member> createQuery(String query) {
-		return em.createQuery(query, Member.class);
+	private TypedQuery<Member> createQuery(String query,Object ... params) {
+		TypedQuery<Member> q= em.createQuery(query,Member.class);
+		for(int i=0;i<params.length;i++) {
+			q.setParameter(i+1, params[i]);
+		}
+		return q;
+	
 	}
 
 }
