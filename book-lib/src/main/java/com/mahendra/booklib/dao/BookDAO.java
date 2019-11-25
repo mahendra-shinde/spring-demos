@@ -18,4 +18,6 @@ public interface BookDAO {
 	
 	void update(Book book);
 	Integer save(Book book);
+	
+	void delete(Book book);
 }

@@ -18,6 +18,7 @@
 	</bean>
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
+		<property name="showSql" value="true"/>
 	</bean>
 
 	<bean id="emFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -26,8 +27,10 @@
 		<property name="packagesToScan" value="com.mahendra.booklib.models"/>
 	</bean>
 	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+	<!-- JPA-TransactionManager would COMMIT every DML if no exception is thrown
+		 But ROLLBACKS when exception is thrown in DAO or Service -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emFactory"/>
 	</bean>
 
 	

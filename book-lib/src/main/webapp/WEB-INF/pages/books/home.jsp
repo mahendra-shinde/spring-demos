@@ -14,24 +14,20 @@
 <h3>Search Book By ID</h3>
 
 <form action="find-by-id.htm" method="post">
-	Book Id : <input type="text" name="id" required/>
+<!-- Retain the last value entered in text field using EL expression in VALUE attribute -->
+	Book Id : <input type="text" name="id" value="${param.id}"  required/>
 	<input type="submit" value="find"/> 
 </form>
 
 <h3>Search Book By Title</h3>
 <form action="find-by-title.htm" method="post">
-	Book Title : <input type="text" name="title" required/>
+<!-- Retain the last value entered in text field using EL expression in VALUE attribute -->
+	Book Title : <input type="text" name="title" value="${param.value }" required/>
 	<input type="submit" value="find"/> 
 </form>
 <br/>
 
-<h3>Create new Book</h3>
-<s:form action="add-book.htm" method="post" modelAttribute="book">
-	title of book : <s:input path="title" /><br/>
-	Author name: <s:input path="author" /><br/>
-	Category: <s:input path="category" /><br/>
-	<input type="submit" value="save"/>
-</s:form>
+
 
 <div class="dataPanel">
 
@@ -58,9 +54,8 @@
 <td>${b.category }</td>
 <td>${b.status=="A"?'Available':'Not Available'}</td>
 <td>
-	<a href="#">Edit</a>
-	<a href="#">Delete</a>
-	<a href="#">Update</a>
+	<a href="edit.htm?id=${b.id}">Edit</a>
+	<a href="delete.htm?id=${b.id}"  onclick="return confirm('Do you really want to delete book \n ${b.title} ')" >Delete</a>
 </td>
 
 </tr>

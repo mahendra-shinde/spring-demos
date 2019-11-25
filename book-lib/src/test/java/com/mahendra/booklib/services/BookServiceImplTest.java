@@ -27,6 +27,7 @@ public class BookServiceImplTest {
 	public void testSave() {
 		Book book = new Book("Thinking in Java","Unknown","Java","A");
 		int id = service.save(book);
+		System.out.println(id);
 		assertNotEquals(0, id);
 	}
 

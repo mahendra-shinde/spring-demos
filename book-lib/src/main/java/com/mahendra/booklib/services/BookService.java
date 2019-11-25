@@ -16,4 +16,7 @@ public interface BookService {
 	List<Book> findAvailableByCategory(String category);
 	
 	int save(Book book);
+	void update(Book book);
+	void delete(int id);
+	
 }

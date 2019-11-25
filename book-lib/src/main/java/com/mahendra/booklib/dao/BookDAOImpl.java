@@ -27,7 +27,6 @@ public class BookDAOImpl implements BookDAO {
 		// TODO Auto-generated method stub
 		log.info("Finding book with id " + id);
 		Book book = em.find(Book.class, id);
-		log.info("Found book " + book.getTitle());
 		return book;
 	}
 
@@ -51,7 +50,7 @@ public class BookDAOImpl implements BookDAO {
 	@Override
 	public List<Book> findByTitle(String title) {
 		log.info("Finding books by title " + title);
-		List<Book> temp = createQuery("from Book b where lower(b.title) = lower(?1)", title)
+		List<Book> temp = createQuery("from Book b where lower(b.title) like concat('%',lower(?1),'%')", title)
 				.getResultList();
 		log.info("Found " + temp.size() + "books");
 		return temp;
@@ -104,4 +103,9 @@ public class BookDAOImpl implements BookDAO {
 		}
 		return q;
 		}
+
+	@Override
+	public void delete(Book book) {
+		em.remove(book);
+	}
 }
