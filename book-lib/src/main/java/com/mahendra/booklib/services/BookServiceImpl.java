@@ -2,10 +2,12 @@ package com.mahendra.booklib.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mahendra.booklib.dao.BookDAO;
 import com.mahendra.booklib.exceptions.ApplicationException;
@@ -13,6 +15,8 @@ import com.mahendra.booklib.models.Book;
 
 
 @Service
+@Scope(proxyMode=ScopedProxyMode.INTERFACES)
+@Transactional
 public class BookServiceImpl implements BookService {
 	
 	@Autowired
@@ -22,6 +26,8 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book findById(Integer id) {
 		Book temp = dao.findById(id);
+		if(temp==null)
+			throw new ApplicationException("Book not found!");
 		return temp;
 	}
 
@@ -61,7 +67,7 @@ public class BookServiceImpl implements BookService {
 		return temp;
 	}
 
-	@Transactional
+	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public int save(Book book) {
 		int id = dao.save(book);

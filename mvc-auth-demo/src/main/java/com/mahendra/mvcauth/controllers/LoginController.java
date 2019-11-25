@@ -60,6 +60,7 @@ public class LoginController {
 		if(password !=null &&  password.equals(pass)) {
 			return true;
 		}
-		return false;
+		throw new RuntimeException("INavlid Pass");
+		
 	}
 }

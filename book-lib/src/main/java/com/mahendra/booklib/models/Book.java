@@ -22,7 +22,7 @@ public class Book {
 	private String category;
 	
 	@Column(name="status",length=1)
-	private char status;
+	private String status;
 	
 	public Integer getId() {
 		return id;
@@ -48,13 +48,13 @@ public class Book {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Book(String title, String author, String category, char status) {
+	public Book(String title, String author, String category, String status) {
 		super();
 		this.title = title;
 		this.author = author;
