@@ -20,7 +20,7 @@ public class Member {
 	private String lastName;
 	
 	@Column(name="status",length=1)
-	private char status;
+	private String status;
 	
 	
 	public Integer getId() {
@@ -41,17 +41,17 @@ public class Member {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public Member(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.status = 'A';
+		this.status = "A";
 	}
 	public Member() {
 		super();

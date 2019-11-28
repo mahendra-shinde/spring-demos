@@ -13,6 +13,10 @@ import com.mahendra.booklib.dao.BookDAO;
 import com.mahendra.booklib.exceptions.ApplicationException;
 import com.mahendra.booklib.models.Book;
 
+/**
+ * @author mahendra shinde (MahendraShinde@synergetics-india.com
+ *
+ */
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {

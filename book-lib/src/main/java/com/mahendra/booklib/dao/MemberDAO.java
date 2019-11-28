@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.mahendra.booklib.models.Member;
 
+/**
+ * @author mahendra shinde (MahendraShinde@synergetics-india.com
+ *
+ */
 public interface MemberDAO {
 
 	Member findById(Integer id);
@@ -12,4 +16,5 @@ public interface MemberDAO {
 	
 	void update(Member Member);
 	Integer save(Member Member);
+	
 }

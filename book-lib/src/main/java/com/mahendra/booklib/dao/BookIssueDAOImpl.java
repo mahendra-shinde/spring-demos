@@ -1,7 +1,5 @@
 package com.mahendra.booklib.dao;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.util.Date;
 import java.util.List;
 

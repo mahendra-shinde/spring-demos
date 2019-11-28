@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 import com.mahendra.booklib.models.BookIssue;
 import com.mahendra.booklib.models.Member;
 
+/**
+ * @author mahendra shinde (MahendraShinde@synergetics-india.com
+ *
+ */
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 

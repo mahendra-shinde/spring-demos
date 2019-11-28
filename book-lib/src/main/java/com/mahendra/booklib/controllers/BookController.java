@@ -17,6 +17,10 @@ import com.mahendra.booklib.exceptions.ApplicationException;
 import com.mahendra.booklib.models.Book;
 import com.mahendra.booklib.services.BookService;
 
+/**
+ * @author mahendra shinde (MahendraShinde@synergetics-india.com
+ *
+ */
 @Controller
 @RequestMapping("books")
 public class BookController {
@@ -96,13 +100,13 @@ public class BookController {
 		model.addAttribute("book", new Book());
 		return "books/add";
 	}
-	
+
 	@GetMapping("delete.htm")
-	public String deleteBook(@RequestParam int id,Model map) {
+	public String deleteBook(@RequestParam int id, Model map) {
 		try {
-		service.delete(id);
-		}catch(Exception ex) {
-			map.addAttribute("msg",ex.getMessage());
+			service.delete(id);
+		} catch (Exception ex) {
+			map.addAttribute("msg", ex.getMessage());
 		}
 		return "books/home";
 	}
